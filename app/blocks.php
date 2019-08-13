@@ -14,7 +14,7 @@ add_filter( 'block_categories', function ( $categories, $post ) {
         array(
             array(
                 'slug'  => 'my-category',
-                'title' => __( 'My category', 'my-plugin' ),
+                'title' => __( 'My category', 'toibox' ),
                 'icon'  => 'wordpress',
             ),
         )
