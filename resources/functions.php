@@ -35,11 +35,13 @@ array_map( function ( $file ) {
 
     require_once $filepath;
 }, [
-    'setup.php',
     'assets.php',
-    'templates.php',
     'blocks.php',
-    'post-types.php',
-    'taxonomies.php',
+    'custom-fields.php',
+    'customizer.php',
     'dashboard.php',
+    'post-types.php',
+    'setup.php',
+    'taxonomies.php',
+    'templates.php',
 ] );
