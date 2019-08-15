@@ -5,23 +5,6 @@ namespace Toi\ToiBox\Setup;
 use Toi\ToiBox\Assets;
 
 /**
- * Theme assets
- */
-add_action( 'wp_enqueue_scripts', function () {
-    // Enqueue Styles
-    wp_enqueue_style( 'toibox/main', Assets\get_url( 'css/main.css' ), false, null );
-
-    // Enqueue Scripts
-    wp_register_script( 'toibox/vendor', Assets\get_url( 'js/vendor.js' ), [ 'jquery' ], null, true );
-    wp_add_inline_script( 'toibox/vendor', file_get_contents( Assets\get_path( 'js/manifest.js' ) ), 'before' );
-    wp_enqueue_script( 'toibox/main', Assets\get_url( 'js/main.js' ), [ 'jquery', 'toibox/vendor' ], null, true );
-
-    if ( is_single() && comments_open() && get_option( 'thread_comments' ) ) {
-        wp_enqueue_script( 'comment-reply' );
-    }
-}, 100 );
-
-/**
  * Theme setup
  */
 add_action( 'after_setup_theme', function () {
@@ -103,3 +86,58 @@ add_action( 'widgets_init', function () {
                       ] + $config );
 } );
 
+/**
+ * Theme assets
+ */
+add_action( 'wp_enqueue_scripts', function () {
+    // Enqueue Styles
+    wp_enqueue_style( 'toibox/main', Assets\get_url( 'css/main.css' ), false, null );
+
+    // Enqueue Scripts
+    wp_register_script( 'toibox/vendor', Assets\get_url( 'js/vendor.js' ), [ 'jquery' ], null, true );
+    wp_add_inline_script( 'toibox/vendor', file_get_contents( Assets\get_path( 'js/manifest.js' ) ), 'before' );
+    wp_enqueue_script( 'toibox/main', Assets\get_url( 'js/main.js' ), [ 'jquery', 'toibox/vendor' ], null, true );
+
+    if ( is_single() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
+}, 100 );
+
+/**
+ * Critical CSS
+ */
+add_action( 'wp_head', function () {
+    $classes = get_body_class();
+    /**
+     * Check for template specific Critical CSS
+     */
+    foreach ( $classes as $class ) {
+        if ( file_exists( Assets\get_path( "css/critical/{$class}_critical.min.css" ) ) ) {
+            printf(
+                '<style>%s</style>',
+                file_get_contents( Assets\get_path( "css/critical/{$class}_critical.min.css" ) )
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Fallback: Load Home Critical CSS
+     */
+    if ( file_exists( Assets\get_path( "css/critical/home_critical.min.css" ) ) ) {
+        printf(
+            '<style>%s</style>',
+            file_get_contents( Assets\get_path( "css/critical/home_critical.min.css" ) )
+        );
+    }
+}, 7 );
+
+/**
+ * SVG Sprite
+ */
+add_filter( 'wp_footer', function () {
+    if ( file_exists( Assets\get_path( 'sprites/map.svg' ) ) ) {
+        echo file_get_contents( Assets\get_path( 'sprites/map.svg' ) );
+    }
+} );

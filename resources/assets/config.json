@@ -1,0 +1,28 @@
+{
+  "devUrl": "https://dev.test/",
+  "watch": [
+    "app/**/*.php",
+    "public/**/*",
+    "resources/views/**/*.php"
+  ],
+  "paths": {
+    "assets": "resources/assets",
+    "output": "public"
+  },
+  "criticalCss": {
+    "urls": [
+      {
+        "url": "hello-world",
+        "template": "single"
+      },
+      {
+        "url": "hello-world",
+        "template": "single"
+      },
+      {
+        "url": "hello-world",
+        "template": "single"
+      }
+    ]
+  }
+}

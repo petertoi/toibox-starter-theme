@@ -12,6 +12,7 @@ insert_final_newline = true
 
 [*.js]
 indent_style = tab
+ij_javascript_align_multiline_chained_methods = true
 
 [*.php]
 indent_size = 4

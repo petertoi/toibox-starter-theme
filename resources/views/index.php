@@ -6,7 +6,14 @@
  * @author  Peter Toi <peter@petertoi.com>
  */
 ?>
-<i class="icon icon-home"></i>
+<div>
+  <i class="icon icon-home"></i>
+</div>
+<div id="maple">
+  <svg>
+    <use xlink:href="#sprite-maple-leaf"></use>
+  </svg>
+</div>
 <p>
   <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
     Link with href

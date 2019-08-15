@@ -1,10 +1,10 @@
-const mix = require( 'laravel-mix' );
-const path = require( 'path' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const SpritesmithPlugin = require( 'webpack-spritesmith' );
 const SVGSpritemapPlugin = require( 'svg-spritemap-webpack-plugin' );
+const mix = require( 'laravel-mix' );
 require( 'laravel-mix-polyfill' );
 require( 'laravel-mix-versionhash' );
+require( 'laravel-mix-criticalcss' );
 
 /*
  |--------------------------------------------------------------------------
@@ -16,8 +16,11 @@ require( 'laravel-mix-versionhash' );
  | file for your application, as well as bundling up your JS files.
  |
  */
-const assetsDir = 'resources/assets';
-const outputDir = 'public';
+
+const config = require( './resources/assets/build/config' );
+
+const assetsDir = config.paths.assets;
+const outputDir = config.paths.output;
 
 const options = {
 	extractVueStyles: false,
@@ -32,6 +35,18 @@ mix.options( options )
 	 .setPublicPath( outputDir )
 	 .sourceMaps( false )
 	 .sass( `${ assetsDir }/scss/main.scss`, `${ outputDir }/css/main.css` )
+	 .criticalCss( {
+			 enabled: mix.inProduction(),
+			 paths: {
+				 base: config.devUrl,
+				 templates: `./${ outputDir }/css/critical/`,
+			 },
+			 urls: config.criticalCss.urls,
+			 options: {
+				 minify: true,
+			 },
+		 },
+	 )
 	 .js( `${ assetsDir }/js/main.js`, `${ outputDir }/js/main.js` )
 	 .polyfill( {
 		 enabled: true,
@@ -45,34 +60,37 @@ mix.options( options )
 	 .copy( `${ assetsDir }/svg/**/*`, `${ outputDir }/svg` )
 	 .copy( `${ assetsDir }/sprites/*`, `${ outputDir }/sprites` )
 	 .browserSync( {
-		 proxy: 'toibox.test',
-		 files: [
-			 'app/**/*.php',
-			 'public/**/*',
-			 'resources/views/**/*.php',
-		 ],
+		 proxy: config.devUrl,
+		 files: config.watch,
 	 } )
 	 .webpackConfig( {
 		 plugins: [
 			 new CleanWebpackPlugin(),
 			 new SpritesmithPlugin( {
 				 src: {
-					 cwd: path.resolve( assetsDir, 'sprites/img' ),
-					 glob: '*.png',
+					 cwd: `${ assetsDir }/sprites/img/`,
+					 glob: '**/*.png',
 				 },
 				 target: {
-					 image: path.resolve( assetsDir, 'sprites/spritemap.png' ),
-					 css: path.resolve( assetsDir, 'scss/common/_sprite.scss' ),
+					 image: `${ assetsDir }/sprites/map.png`,
+					 css: `${ assetsDir }/scss/common/_sprite.scss`,
 				 },
 				 apiOptions: {
-					 cssImageRef: '../sprites/spritemap.png',
+					 cssImageRef: '../sprites/map.png',
 				 },
 			 } ),
 			 new SVGSpritemapPlugin(
-				 [ path.resolve( assetsDir, 'svg/*.svg' ) ],
+				 [ `${ assetsDir }/sprites/svg/**/*.svg` ],
 				 {
 					 output: {
-						 filename: 'sprites/spritemap.svg',
+						 filename: 'sprites/map.svg',
+						 svgo: {
+							 plugins: [
+								 {
+									 removeAttrs: { attrs: '(stroke|fill)' },
+								 },
+							 ],
+						 },
 					 },
 				 },
 			 ),
@@ -85,4 +103,3 @@ mix.options( options )
 if ( mix.inProduction() ) {
 	mix.versionHash();
 }
-

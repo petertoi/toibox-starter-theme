@@ -29,7 +29,17 @@ function get_path( $filename ) {
     $filename    = str_replace( '//', '/', "/$filename" );
     $public_path = dirname( get_template_directory() ) . '/public';
 
-    return $public_path . $filename;
+    if ( empty( $manifest ) ) {
+        $manifest_path = dirname( get_template_directory() ) . '/public/mix-manifest.json';
+        $manifest      = new Manifest( $manifest_path );
+    }
+
+    if ( array_key_exists( $filename, $manifest->get() ) ) {
+        return $public_path . $manifest->get()[ $filename ];
+    } else {
+        return $public_path . $filename;
+    }
+
 }
 
 class Manifest {

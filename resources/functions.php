@@ -38,7 +38,7 @@ array_map( function ( $file ) {
 }, [
     'assets.php',
     'blocks.php',
-//    'clean-up.php',
+    'clean-up.php',
     'custom-fields.php',
     'customizer.php',
     'dashboard.php',
