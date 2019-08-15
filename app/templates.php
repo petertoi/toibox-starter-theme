@@ -8,21 +8,24 @@
 
 namespace Toi\ToiBox\Templates;
 
+function get_main() {
+    return Template_Wrapper::$main_template;
+}
+
+function get_sidebar( $sidebar = 'partials/sidebar.php' ) {
+    return new Template_Wrapper( $sidebar );
+}
+
+function has_sidebar() {
+    return true;
+}
+
 /**
  * Theme wrapper
  *
  * @link https://roots.io/sage/docs/theme-wrapper/
  * @link http://scribu.net/wordpress/theme-wrappers.html
  */
-function get_main() {
-    return Template_Wrapper::$main_template;
-}
-
-function get_sidebar() {
-    return new Template_Wrapper( 'templates/sidebar.php' );
-}
-
-
 class Template_Wrapper {
     // Stores the full path to the main template file
     public static $main_template;
@@ -78,23 +81,11 @@ class Template_Wrapper {
 
 add_filter( 'template_include', [ __NAMESPACE__ . '\\Template_Wrapper', 'wrap' ] );
 
-add_filter( 'get_template_part', function ( $slug, $name, $templates ) {
-    $new_templates = [];
-    foreach ( $templates as $template ) {
-        $new_templates[] = "resources/views/$template";
-        $new_templates[] = "views/$template";
-        $new_templates[] = $template;
-    }
-
-    return $new_templates;
-
-}, 10, 3 );
-
 array_map( function ( $type ) {
     add_filter( "{$type}_template_hierarchy", function ( $templates ) {
         $new_templates = [];
         foreach ( $templates as $template ) {
-            $new_templates[] = "resources/views/$template";
+//            $new_templates[] = "resources/views/$template";
             $new_templates[] = "views/$template";
             $new_templates[] = $template;
         }

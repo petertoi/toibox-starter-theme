@@ -1,0 +1,104 @@
+# Copyright (C) 2019
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/toibox\n"
+"POT-Creation-Date: 2019-08-13 21:04:03+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: app/blocks.php:17
+msgid "My category"
+msgstr ""
+
+#: app/setup.php:54
+msgid "Primary Navigation"
+msgstr ""
+
+#: app/setup.php:97
+msgid "Primary"
+msgstr ""
+
+#: app/setup.php:101
+msgid "Footer"
+msgstr ""
+
+#: resources/functions.php:6
+msgid "You must be using PHP 7.1 or greater."
+msgstr ""
+
+#: resources/functions.php:6
+msgid "Invalid PHP version"
+msgstr ""
+
+#: resources/functions.php:13
+msgid "You must be using WordPress 4.7.0 or greater."
+msgstr ""
+
+#: resources/functions.php:13
+msgid "Invalid WordPress version"
+msgstr ""
+
+#: resources/functions.php:20
+msgid "Please run composer to install dependencies."
+msgstr ""
+
+#: resources/functions.php:20
+msgid "Missing Dependencies"
+msgstr ""
+
+#: resources/functions.php:33
+msgid "Error locating %s for inclusion"
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/functions.php:43
+msgid "Post types must be registered on the \"init\" hook."
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/functions.php:117
+msgid "Taxonomies must be registered on the \"init\" hook."
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:415
+msgid "All Authors"
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:419
+#: vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:778
+msgid "Author"
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:1079
+#: vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:1106
+#. translators: %s: The ID of the Posts 2 Posts connection type
+msgid "Invalid connection type: %s"
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/src/class-extended-cpt.php:725
+#. translators: %s: Post type query variable name
+msgid ""
+"Post type query var \"%s\" clashes with a taxonomy query var of the same "
+"name"
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/src/class-extended-taxonomy-admin.php:398
+msgid "Not specified"
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/src/class-extended-taxonomy.php:227
+#. translators: %s: Taxonomy query variable name
+msgid ""
+"Taxonomy query var \"%s\" clashes with a post type query var of the same "
+"name"
+msgstr ""
+
+#: vendor/johnbillion/extended-cpts/src/class-extended-taxonomy.php:233
+#. translators: %s: Taxonomy query variable name
+msgid "Taxonomy query var \"%s\" is not allowed"
+msgstr ""

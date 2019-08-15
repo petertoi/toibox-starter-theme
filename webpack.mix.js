@@ -1,5 +1,10 @@
 const mix = require( 'laravel-mix' );
+const path = require( 'path' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
+const SpritesmithPlugin = require( 'webpack-spritesmith' );
+const SVGSpritemapPlugin = require( 'svg-spritemap-webpack-plugin' );
+require( 'laravel-mix-polyfill' );
+require( 'laravel-mix-versionhash' );
 
 /*
  |--------------------------------------------------------------------------
@@ -11,75 +16,73 @@ const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
  | file for your application, as well as bundling up your JS files.
  |
  */
-
 const assetsDir = 'resources/assets';
 const outputDir = 'public';
 
-mix.options( {
+const options = {
 	extractVueStyles: false,
 	processCssUrls: false, // Webpack url() rewriting
-	// purifyCss: {
-	// 	purifyOptions: {
-	// 		info: true,
-	// 		rejected: false,
-	// 		minify: false,
-	// 		whitelist: [
-	// 			'*collapse*',
-	// 			'*show*',
-	// 			'*card*',
-	// 		],
-	// 	},
-	// 	paths: [ 'resources/views/**/*.php' ],
-	// 	verbose: false,
-	// },
 	purifyCss: false,
 	postCss: [
 		require( 'autoprefixer' ),
 	],
-} );
+};
 
-mix.setPublicPath( outputDir );
-
-let sassOptions = {};
+mix.options( options )
+	 .setPublicPath( outputDir )
+	 .sourceMaps( false )
+	 .sass( `${ assetsDir }/scss/main.scss`, `${ outputDir }/css/main.css` )
+	 .js( `${ assetsDir }/js/main.js`, `${ outputDir }/js/main.js` )
+	 .polyfill( {
+		 enabled: true,
+		 useBuiltIns: 'usage',
+		 targets: false,
+	 } )
+	 .extract()
+	 .copy( `${ assetsDir }/fonts/**/*`, `${ outputDir }/fonts` )
+	 .copy( `${ assetsDir }/img/**/*`, `${ outputDir }/img` )
+	 .copy( `${ assetsDir }/lang/**/*.mo`, `${ outputDir }/lang` )
+	 .copy( `${ assetsDir }/svg/**/*`, `${ outputDir }/svg` )
+	 .copy( `${ assetsDir }/sprites/*`, `${ outputDir }/sprites` )
+	 .browserSync( {
+		 proxy: 'toibox.test',
+		 files: [
+			 'app/**/*.php',
+			 'public/**/*',
+			 'resources/views/**/*.php',
+		 ],
+	 } )
+	 .webpackConfig( {
+		 plugins: [
+			 new CleanWebpackPlugin(),
+			 new SpritesmithPlugin( {
+				 src: {
+					 cwd: path.resolve( assetsDir, 'sprites/img' ),
+					 glob: '*.png',
+				 },
+				 target: {
+					 image: path.resolve( assetsDir, 'sprites/spritemap.png' ),
+					 css: path.resolve( assetsDir, 'scss/common/_sprite.scss' ),
+				 },
+				 apiOptions: {
+					 cssImageRef: '../sprites/spritemap.png',
+				 },
+			 } ),
+			 new SVGSpritemapPlugin(
+				 [ path.resolve( assetsDir, 'svg/*.svg' ) ],
+				 {
+					 output: {
+						 filename: 'sprites/spritemap.svg',
+					 },
+				 },
+			 ),
+		 ],
+		 externals: {
+			 jquery: 'jQuery',
+		 },
+	 } );
 
 if ( mix.inProduction() ) {
-	mix.version();
-	sassOptions = {
-		outputStyle: 'compressed',
-	};
-} else {
-	mix.sourceMaps();
-	sassOptions = {
-		indentWidth: 1,
-		outputStyle: 'expanded',
-	};
+	mix.versionHash();
 }
 
-mix.sass( `${ assetsDir }/scss/main.scss`, `${ outputDir }/css/main.css`, sassOptions );
-
-mix.js( `${ assetsDir }/js/main.js`, `${ outputDir }/js/main.js` );
-mix.babel( `${ outputDir }/js/main.js`, `${ outputDir }/js/main.js` );
-mix.extract();
-
-mix.copy( `${ assetsDir }/fonts/**/*`, `${ outputDir }/fonts` );
-mix.copy( `${ assetsDir }/img/**/*`, `${ outputDir }/img` );
-mix.copy( `${ assetsDir }/lang/**/*.mo`, `${ outputDir }/lang` );
-mix.copy( `${ assetsDir }/svg/**/*`, `${ outputDir }/svg` );
-
-mix.browserSync( {
-	proxy: 'toibox.test',
-	files: [
-		'app/**/*.php',
-		'public/**/*',
-		'resources/views/**/*.php',
-	],
-} );
-
-mix.webpackConfig( {
-	plugins: [
-		new CleanWebpackPlugin(),
-	],
-	externals: {
-		jquery: 'jQuery',
-	},
-} );

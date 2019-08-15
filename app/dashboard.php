@@ -30,3 +30,7 @@ add_action( 'admin_init', function () {
     // At a Glance: Number of Posts, Pages, Comments, Etc.
     // remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
 } );
+
+add_filter( 'admin_footer_text', function ( $html ) {
+    return '<span id="footer-thankyou">Made in 🇨🇦 by <a href="https://petertoi.com" target="_blank">Peter Toi</a>.</span>';
+} );

@@ -13,14 +13,23 @@ use Toi\ToiBox\Templates;
 <html <?php language_attributes(); ?>>
 <?php get_template_part( 'views/partials/head' ); ?>
 <body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <?php
-wp_body_open();
 do_action( 'get_header' );
+get_template_part( 'views/partials/header' );
 ?>
-<div class="wrap">
-  <?php include Templates\get_main(); ?>
+<div class="wrap container" role="document" tabindex="0">
+  <main role="main">
+    <?php include Templates\get_main(); ?>
+  </main>
+  <aside role="complementary">
+    <?php include Templates\get_sidebar(); ?>
+  </aside>
 </div>
-<?php do_action( 'get_footer' ); ?>
+<?php
+do_action( 'get_footer' );
+get_template_part( 'views/partials/footer' );
+?>
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -1,8 +1,5 @@
 @import "common/variables";
-
-/** Import everything from autoload */
-@import "autoload/bootstrap";
-
+@import "vendor/bootstrap";
 /**
  * Import npm dependencies
  *
@@ -10,16 +7,24 @@
  * @see https://github.com/webpack-contrib/sass-loader#imports
  */
 // @import "~some-node-module";
-
 /** Import theme styles */
-//@import "common/global";
+@import "common/sprite";
+@import "common/global";
 //@import "components/buttons";
 //@import "components/comments";
 //@import "components/forms";
-//@import "components/wp-classes";
+@import "components/wordpress";
 //@import "layouts/header";
 //@import "layouts/sidebar";
 //@import "layouts/footer";
 //@import "layouts/pages";
 //@import "layouts/posts";
 //@import "layouts/tinymce";
+
+.icon {
+  display: inline-block;
+}
+
+.icon-home {
+  @include sprite($logo-cbs);
+}

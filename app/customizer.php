@@ -11,4 +11,3 @@ add_action( 'customize_register', function ( $wp_customize ) {
 //    $wp_customize->remove_control( 'custom_css' );
     $wp_customize->remove_section( 'custom_css' );
 } );
-

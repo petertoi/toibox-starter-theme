@@ -34,14 +34,19 @@ array_map( function ( $file ) {
     }
 
     require_once $filepath;
+
 }, [
     'assets.php',
     'blocks.php',
+//    'clean-up.php',
     'custom-fields.php',
     'customizer.php',
     'dashboard.php',
+    'filters-core.php',
     'post-types.php',
     'setup.php',
+    'shortcodes.php',
     'taxonomies.php',
     'templates.php',
+    'widgets.php',
 ] );

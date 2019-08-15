@@ -1,0 +1,145 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$logo-cbs-name: 'logo-cbs';
+$logo-cbs-x: 0px;
+$logo-cbs-y: 0px;
+$logo-cbs-offset-x: 0px;
+$logo-cbs-offset-y: 0px;
+$logo-cbs-width: 250px;
+$logo-cbs-height: 100px;
+$logo-cbs-total-width: 500px;
+$logo-cbs-total-height: 300px;
+$logo-cbs-image: '../sprites/spritemap.png';
+$logo-cbs: (0px, 0px, 0px, 0px, 250px, 100px, 500px, 300px, '../sprites/spritemap.png', 'logo-cbs', );
+$logo-crate-and-barrel-name: 'logo-crate-and-barrel';
+$logo-crate-and-barrel-x: 0px;
+$logo-crate-and-barrel-y: 100px;
+$logo-crate-and-barrel-offset-x: 0px;
+$logo-crate-and-barrel-offset-y: -100px;
+$logo-crate-and-barrel-width: 250px;
+$logo-crate-and-barrel-height: 100px;
+$logo-crate-and-barrel-total-width: 500px;
+$logo-crate-and-barrel-total-height: 300px;
+$logo-crate-and-barrel-image: '../sprites/spritemap.png';
+$logo-crate-and-barrel: (0px, 100px, 0px, -100px, 250px, 100px, 500px, 300px, '../sprites/spritemap.png', 'logo-crate-and-barrel', );
+$logo-rbc-financial-name: 'logo-rbc-financial';
+$logo-rbc-financial-x: 250px;
+$logo-rbc-financial-y: 0px;
+$logo-rbc-financial-offset-x: -250px;
+$logo-rbc-financial-offset-y: 0px;
+$logo-rbc-financial-width: 250px;
+$logo-rbc-financial-height: 100px;
+$logo-rbc-financial-total-width: 500px;
+$logo-rbc-financial-total-height: 300px;
+$logo-rbc-financial-image: '../sprites/spritemap.png';
+$logo-rbc-financial: (250px, 0px, -250px, 0px, 250px, 100px, 500px, 300px, '../sprites/spritemap.png', 'logo-rbc-financial', );
+$logo-rosetta-stone-name: 'logo-rosetta-stone';
+$logo-rosetta-stone-x: 250px;
+$logo-rosetta-stone-y: 100px;
+$logo-rosetta-stone-offset-x: -250px;
+$logo-rosetta-stone-offset-y: -100px;
+$logo-rosetta-stone-width: 250px;
+$logo-rosetta-stone-height: 100px;
+$logo-rosetta-stone-total-width: 500px;
+$logo-rosetta-stone-total-height: 300px;
+$logo-rosetta-stone-image: '../sprites/spritemap.png';
+$logo-rosetta-stone: (250px, 100px, -250px, -100px, 250px, 100px, 500px, 300px, '../sprites/spritemap.png', 'logo-rosetta-stone', );
+$logo-staples-name: 'logo-staples';
+$logo-staples-x: 0px;
+$logo-staples-y: 200px;
+$logo-staples-offset-x: 0px;
+$logo-staples-offset-y: -200px;
+$logo-staples-width: 250px;
+$logo-staples-height: 100px;
+$logo-staples-total-width: 500px;
+$logo-staples-total-height: 300px;
+$logo-staples-image: '../sprites/spritemap.png';
+$logo-staples: (0px, 200px, 0px, -200px, 250px, 100px, 500px, 300px, '../sprites/spritemap.png', 'logo-staples', );
+$logo-ticketmaster-name: 'logo-ticketmaster';
+$logo-ticketmaster-x: 250px;
+$logo-ticketmaster-y: 200px;
+$logo-ticketmaster-offset-x: -250px;
+$logo-ticketmaster-offset-y: -200px;
+$logo-ticketmaster-width: 250px;
+$logo-ticketmaster-height: 100px;
+$logo-ticketmaster-total-width: 500px;
+$logo-ticketmaster-total-height: 300px;
+$logo-ticketmaster-image: '../sprites/spritemap.png';
+$logo-ticketmaster: (250px, 200px, -250px, -200px, 250px, 100px, 500px, 300px, '../sprites/spritemap.png', 'logo-ticketmaster', );
+$spritesheet-width: 500px;
+$spritesheet-height: 300px;
+$spritesheet-image: '../sprites/spritemap.png';
+$spritesheet-sprites: ($logo-cbs, $logo-crate-and-barrel, $logo-rbc-financial, $logo-rosetta-stone, $logo-staples, $logo-ticketmaster, );
+$spritesheet: (500px, 300px, '../sprites/spritemap.png', $spritesheet-sprites, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
