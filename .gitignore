@@ -2,3 +2,5 @@
 public
 vendor
 node_modules
+resources/assets/sprites/map.png
+resources/assets/scss/common/_sprite.scss

@@ -1,6 +1,6 @@
 <?php
 /**
- * Filename index.php
+ * Filename page.php
  *
  * @package Toi\ToiBox
  * @author  Peter Toi <peter@petertoi.com>
@@ -13,4 +13,5 @@
     <?php the_content(); ?>
   <?php endwhile; ?>
 <?php endif; ?>
+
 

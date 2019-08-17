@@ -1,12 +1,17 @@
+@import "~system-font-css";
 @import "common/variables";
+@import "vendor/system-font-css";
 @import "vendor/bootstrap";
+
 /**
  * Import npm dependencies
  *
  * Prefix your imports with `~` to grab from node_modules/
  * @see https://github.com/webpack-contrib/sass-loader#imports
  */
+
 // @import "~some-node-module";
+
 /** Import theme styles */
 @import "common/sprite";
 @import "common/global";
@@ -14,17 +19,12 @@
 //@import "components/comments";
 //@import "components/forms";
 @import "components/wordpress";
+@import "layouts/site-header";
+@import "layouts/site-content";
+@import "layouts/site-footer";
 //@import "layouts/header";
 //@import "layouts/sidebar";
 //@import "layouts/footer";
 //@import "layouts/pages";
 //@import "layouts/posts";
 //@import "layouts/tinymce";
-
-.icon {
-  display: inline-block;
-}
-
-.icon-home {
-  @include sprite($logo-cbs);
-}

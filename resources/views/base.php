@@ -18,13 +18,17 @@ use Toi\ToiBox\Templates;
 do_action( 'get_header' );
 get_template_part( 'views/partials/header' );
 ?>
-<div class="wrap container" role="document" tabindex="0">
-  <main role="main">
-    <?php include Templates\get_main(); ?>
-  </main>
-  <aside role="complementary">
-    <?php include Templates\get_sidebar(); ?>
-  </aside>
+<div class="container" role="document" tabindex="0">
+  <div class="site-content row">
+    <main class="main">
+      <?php include Templates\get_main(); ?>
+    </main>
+    <?php if ( Templates\has_sidebar() ) : ?>
+      <aside class="sidebar">
+        <?php include Templates\get_sidebar(); ?>
+      </aside>
+    <?php endif; ?>
+  </div>
 </div>
 <?php
 do_action( 'get_footer' );

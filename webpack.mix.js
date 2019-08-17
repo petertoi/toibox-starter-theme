@@ -24,81 +24,86 @@ const outputDir = config.paths.output;
 
 const options = {
 	extractVueStyles: false,
-	processCssUrls: false, // Webpack url() rewriting
+	processCssUrls: false,
 	purifyCss: false,
 	postCss: [
 		require( 'autoprefixer' ),
 	],
 };
 
-mix.options( options )
-	 .setPublicPath( outputDir )
-	 .sourceMaps( false )
-	 .sass( `${ assetsDir }/scss/main.scss`, `${ outputDir }/css/main.css` )
-	 .criticalCss( {
-			 enabled: mix.inProduction(),
-			 paths: {
-				 base: config.devUrl,
-				 templates: `./${ outputDir }/css/critical/`,
-			 },
-			 urls: config.criticalCss.urls,
-			 options: {
-				 minify: true,
-			 },
-		 },
-	 )
-	 .js( `${ assetsDir }/js/main.js`, `${ outputDir }/js/main.js` )
-	 .polyfill( {
-		 enabled: true,
-		 useBuiltIns: 'usage',
-		 targets: false,
-	 } )
-	 .extract()
-	 .copy( `${ assetsDir }/fonts/**/*`, `${ outputDir }/fonts` )
-	 .copy( `${ assetsDir }/img/**/*`, `${ outputDir }/img` )
-	 .copy( `${ assetsDir }/lang/**/*.mo`, `${ outputDir }/lang` )
-	 .copy( `${ assetsDir }/svg/**/*`, `${ outputDir }/svg` )
-	 .copy( `${ assetsDir }/sprites/*`, `${ outputDir }/sprites` )
-	 .browserSync( {
-		 proxy: config.devUrl,
-		 files: config.watch,
-	 } )
-	 .webpackConfig( {
-		 plugins: [
-			 new CleanWebpackPlugin(),
-			 new SpritesmithPlugin( {
-				 src: {
-					 cwd: `${ assetsDir }/sprites/img/`,
-					 glob: '**/*.png',
-				 },
-				 target: {
-					 image: `${ assetsDir }/sprites/map.png`,
-					 css: `${ assetsDir }/scss/common/_sprite.scss`,
-				 },
-				 apiOptions: {
-					 cssImageRef: '../sprites/map.png',
-				 },
-			 } ),
-			 new SVGSpritemapPlugin(
-				 [ `${ assetsDir }/sprites/svg/**/*.svg` ],
-				 {
-					 output: {
-						 filename: 'sprites/map.svg',
-						 svgo: {
-							 plugins: [
-								 {
-									 removeAttrs: { attrs: '(stroke|fill)' },
-								 },
-							 ],
-						 },
-					 },
-				 },
-			 ),
-		 ],
-		 externals: {
-			 jquery: 'jQuery',
-		 },
-	 } );
+mix
+	.options( options )
+	.setPublicPath( outputDir )
+	.sourceMaps( false )
+	.sass( `${ assetsDir }/scss/main.scss`, `${ outputDir }/css/main.css` )
+	.criticalCss(
+		{
+			enabled: mix.inProduction(),
+			paths: {
+				base: config.devUrl,
+				templates: `./${ outputDir }/css/critical/`,
+			},
+			urls: config.criticalCss.urls,
+			options: {
+				minify: true,
+			},
+		},
+	)
+	.js( `${ assetsDir }/js/main.js`, `${ outputDir }/js/main.js` )
+	.polyfill( {
+		enabled: true,
+		useBuiltIns: 'usage',
+		targets: false,
+	} )
+	.extract()
+	.copy( `${ assetsDir }/fonts/**/*`, `${ outputDir }/fonts` )
+	.copy( `${ assetsDir }/img/**/*`, `${ outputDir }/img` )
+	.copy( `${ assetsDir }/lang/**/*.mo`, `${ outputDir }/lang` )
+	.copy( `${ assetsDir }/svg/**/*`, `${ outputDir }/svg` )
+	.copy( `${ assetsDir }/sprites/*`, `${ outputDir }/sprites` )
+	.browserSync( {
+		proxy: config.devUrl,
+		files: config.watch,
+	} )
+	.webpackConfig( {
+		plugins: [
+			new CleanWebpackPlugin(),
+			new SpritesmithPlugin( {
+				src: {
+					cwd: `${ assetsDir }/sprites/img/`,
+					glob: '**/*.png',
+				},
+				target: {
+					image: `${ assetsDir }/sprites/map.png`,
+					css: `${ assetsDir }/scss/common/_sprite.scss`,
+				},
+				apiOptions: {
+					cssImageRef: '../sprites/map.png',
+				},
+			} ),
+			new SVGSpritemapPlugin(
+				[ `${ assetsDir }/sprites/svg/**/*.svg` ],
+				{
+					output: {
+						filename: 'sprites/map.svg',
+						svgo: {
+							plugins: [
+								{
+									removeAttrs: { attrs: '(stroke|fill)' },
+								},
+								{
+									removeDimensions: true,
+								},
+							],
+						},
+					},
+				},
+			),
+		],
+		externals: {
+			jquery: 'jQuery',
+		},
+	} );
 
 if ( mix.inProduction() ) {
 	mix.versionHash();

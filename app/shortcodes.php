@@ -2,24 +2,21 @@
 /**
  * Filename shortcodes.php
  *
- * @package dev
+ * @package Toi\ToiBox
  * @author  Peter Toi <peter@petertoi.com>
  */
+
+use Toi\ToiBox\Snippets;
+
 add_shortcode( 'year_from_to', function ( $atts ) {
     // Setup defaults.
     $args = shortcode_atts(
         array(
             'from'      => date( 'Y' ),
-            'to'        => date( 'Y' ),
-            'separator' => ' &ndash; ',
+            'separator' => '&ndash;',
         ),
         $atts
     );
 
-    // Return current year if starting year is empty.
-    if ( $args['from'] === $args['to'] ) {
-        return $args['from'];
-    }
-
-    return esc_html( $args['from'] . $args['separator'] . $args['to'] );
+    return esc_html( Snippets\year_from_to( $args['from'], $args['separator'] ) );
 } );

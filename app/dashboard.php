@@ -6,6 +6,9 @@
  * @author  Peter Toi <peter@petertoi.com>
  */
 
+/**
+ * Enable/Disable Core Dashboard Meta Boxes.
+ */
 add_action( 'admin_init', function () {
     // Depreciated / Legacy
     remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
@@ -31,6 +34,28 @@ add_action( 'admin_init', function () {
     // remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
 } );
 
+/**
+ * Disallow File Mods.
+ */
+add_filter( 'file_mod_allowed', function ( $disallow, $context ) {
+    switch ( $context ) {
+        case 'capability_edit_themes':
+            $disallow = false;
+            break;
+        case 'capability_update_core':
+        case 'can_install_language_pack':
+        case 'automatic_updater':
+        case 'download_language_pack':
+        default:
+            break;
+    }
+
+    return $disallow;
+}, 10, 2 );
+
+/**
+ * Customize Footer Text.
+ */
 add_filter( 'admin_footer_text', function ( $html ) {
     return '<span id="footer-thankyou">Made in 🇨🇦 by <a href="https://petertoi.com" target="_blank">Peter Toi</a>.</span>';
 } );

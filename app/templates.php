@@ -17,7 +17,17 @@ function get_sidebar( $sidebar = 'partials/sidebar.php' ) {
 }
 
 function has_sidebar() {
-    return true;
+    static $display;
+
+    isset( $display ) || $display = ! in_array( true, [
+        // The sidebar will NOT be displayed if ANY of the following return true.
+        // @link https://codex.wordpress.org/Conditional_Tags
+        is_404(),
+        is_front_page(),
+        is_page_template( 'template-custom.php' ),
+    ] );
+
+    return $display;
 }
 
 /**
@@ -85,7 +95,6 @@ array_map( function ( $type ) {
     add_filter( "{$type}_template_hierarchy", function ( $templates ) {
         $new_templates = [];
         foreach ( $templates as $template ) {
-//            $new_templates[] = "resources/views/$template";
             $new_templates[] = "views/$template";
             $new_templates[] = $template;
         }
@@ -113,3 +122,13 @@ array_map( function ( $type ) {
     'attachment',
 ] );
 
+add_filter( 'get_search_form', function ( $html ) {
+    $search_form_template = locate_template( 'views/searchform.php' );
+    if ( '' !== $search_form_template ) {
+        ob_start();
+        require( $search_form_template );
+        $html = ob_get_clean();
+    }
+
+    return $html;
+} );
