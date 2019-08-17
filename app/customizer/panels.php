@@ -2,7 +2,7 @@
 /**
  * Filename panels.php
  *
- * @package dev
+ * @package Toi\ToiBox
  * @author  Peter Toi <peter@petertoi.com>
  */
 
