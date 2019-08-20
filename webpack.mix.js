@@ -49,6 +49,9 @@ mix
 			},
 		},
 	)
+	.autoload({
+		jquery: ['$', 'window.jQuery']
+	})
 	.js( `${ assetsDir }/js/main.js`, `${ outputDir }/js/main.js` )
 	.polyfill( {
 		enabled: true,
