@@ -89,6 +89,7 @@ mix
 				{
 					output: {
 						filename: 'sprites/map.svg',
+						svg4everybody: true,
 						svgo: {
 							plugins: [
 								{
