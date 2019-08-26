@@ -14,6 +14,8 @@ The motivation behind this theme came from the desire to build something that:
  - Utilization of the Customizer for theme options etc
  - Clean folder and template organization
  - Wrapper templates rather than `get_header` and `get_footer`
+ - Lints and formats all code against WordPress Coding Standards
+ 
     
 ## Acknowledgements
 
