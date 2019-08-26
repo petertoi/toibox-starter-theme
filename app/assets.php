@@ -42,6 +42,24 @@ function get_path( $filename ) {
 
 }
 
+function get_svg( $symbol, $class = '' ) {
+    if ( false === $class ) {
+        $class_attr = '';
+    } else {
+        $class_attr = ( '' === $class )
+            ? sprintf( 'class="svg--%s"', esc_attr( $symbol ) )
+            : sprintf( 'class="%s"', esc_attr( $class ) );
+    }
+    $svg = sprintf(
+        '<svg %s><use href="%s#%s"></use></svg>',
+        $class_attr,
+        esc_attr( get_url( '/sprites/map.svg' ) ),
+        esc_attr( 'sprite-' . $symbol )
+    );
+
+    return $svg;
+}
+
 class Manifest {
     static $manifest;
 

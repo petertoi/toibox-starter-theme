@@ -132,12 +132,3 @@ add_action( 'wp_head', function () {
         );
     }
 }, 7 );
-
-/**
- * SVG Sprite
- */
-add_filter( 'wp_footer', function () {
-    if ( file_exists( Assets\get_path( 'sprites/map.svg' ) ) ) {
-        echo file_get_contents( Assets\get_path( 'sprites/map.svg' ) );
-    }
-} );
