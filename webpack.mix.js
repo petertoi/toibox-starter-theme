@@ -7,6 +7,20 @@ require( 'laravel-mix-versionhash' );
 require( 'laravel-mix-criticalcss' );
 
 /*
+ * -----------------------------------------------------------------------------
+ * Theme Export Process
+ * -----------------------------------------------------------------------------
+ * Configure the export process in `webpack.mix.export.js`. This bit of code
+ * should remain at the top of the file here so that it bails early when the
+ * `export` command is run.
+ * -----------------------------------------------------------------------------
+ */
+
+if ( process.env.export ) {
+	require( './resources/assets/build/webpack.mix.export.js' );
+	return;
+}
+/*
  |--------------------------------------------------------------------------
  | Mix Asset Management
  |--------------------------------------------------------------------------
@@ -49,9 +63,9 @@ mix
 			},
 		},
 	)
-	.autoload({
-		jquery: ['$', 'window.jQuery']
-	})
+	.autoload( {
+		jquery: [ '$', 'window.jQuery' ],
+	} )
 	.js( `${ assetsDir }/js/main.js`, `${ outputDir }/js/main.js` )
 	.polyfill( {
 		enabled: true,
