@@ -10,8 +10,8 @@
   "scripts": {
     "dev": "npm run development",
     "development": "mix",
-    "watch": "npm run development -- --watch",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "mix watch",
+    "hot": "mix watch --hot",
     "prod": "npm run production",
     "production": "mix --production",
     "export": "cross-env export=1 NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
