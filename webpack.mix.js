@@ -1,10 +1,10 @@
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const SpritesmithPlugin = require( 'webpack-spritesmith' );
-const SVGSpritemapPlugin = require( 'svg-spritemap-webpack-plugin' );
+// const SVGSpritemapPlugin = require( 'svg-spritemap-webpack-plugin' );
 const mix = require( 'laravel-mix' );
 require( 'laravel-mix-polyfill' );
 require( 'laravel-mix-versionhash' );
-require( 'laravel-mix-criticalcss' );
+// require( 'laravel-mix-criticalcss' );
 
 /*
  * -----------------------------------------------------------------------------
@@ -37,12 +37,8 @@ const assetsDir = config.paths.assets;
 const outputDir = config.paths.output;
 
 const options = {
-	extractVueStyles: false,
 	processCssUrls: false,
 	purifyCss: false,
-	postCss: [
-		require( 'autoprefixer' ),
-	],
 };
 
 mix
@@ -50,19 +46,19 @@ mix
 	.setPublicPath( outputDir )
 	.sourceMaps( false )
 	.sass( `${ assetsDir }/scss/main.scss`, `${ outputDir }/css/main.css` )
-	.criticalCss(
-		{
-			enabled: mix.inProduction(),
-			paths: {
-				base: config.devUrl,
-				templates: `./${ outputDir }/css/critical/`,
-			},
-			urls: config.criticalCss.urls,
-			options: {
-				minify: true,
-			},
-		},
-	)
+	// .criticalCss(
+	// 	{
+	// 		enabled: mix.inProduction(),
+	// 		paths: {
+	// 			base: config.devUrl,
+	// 			templates: `./${ outputDir }/css/critical/`,
+	// 		},
+	// 		urls: config.criticalCss.urls,
+	// 		options: {
+	// 			minify: true,
+	// 		},
+	// 	},
+	// )
 	.autoload( {
 		jquery: [ '$', 'window.jQuery' ],
 	} )
@@ -98,25 +94,25 @@ mix
 					cssImageRef: '../sprites/map.png',
 				},
 			} ),
-			new SVGSpritemapPlugin(
-				[ `${ assetsDir }/sprites/svg/**/*.svg` ],
-				{
-					output: {
-						filename: 'sprites/map.svg',
-						svg4everybody: true,
-						svgo: {
-							plugins: [
-								{
-									removeAttrs: { attrs: '(stroke|fill)' },
-								},
-								{
-									removeDimensions: true,
-								},
-							],
-						},
-					},
-				},
-			),
+			// new SVGSpritemapPlugin(
+			// 	[ `${ assetsDir }/sprites/svg/**/*.svg` ],
+			// 	{
+			// 		output: {
+			// 			filename: 'sprites/map.svg',
+			// 			svg4everybody: true,
+			// 			svgo: {
+			// 				plugins: [
+			// 					{
+			// 						removeAttrs: { attrs: '(stroke|fill)' },
+			// 					},
+			// 					{
+			// 						removeDimensions: true,
+			// 					},
+			// 				],
+			// 			},
+			// 		},
+			// 	},
+			// ),
 		],
 		externals: {
 			jquery: 'jQuery',
