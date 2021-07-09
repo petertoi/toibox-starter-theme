@@ -1,7 +1,6 @@
 {
     "require": {
-        "johnbillion/extended-cpts": "^4.3",
-        "wp-bootstrap/wp-bootstrap-navwalker": "^4.2",
+        "johnbillion/extended-cpts": "^4.5.2",
         "indigotree/wp-bootstrap-nav-walker": "^1.1"
     }
 }
